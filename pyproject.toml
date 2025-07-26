@@ -19,3 +19,43 @@ dependencies = [
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.lint.dependencies]
+black = "^25.1.0"
+flake8 = "^7.3.0"
+isort = "^6.0.1"
+
+[tool.black]
+# Максимальная длина строки
+line-length = 79
+# Файлы, которые не нужно форматировать
+exclude = '''
+(
+  /(
+      \.eggs         # Исключить несколько общих каталогов
+    | \.git          # в корне проекта
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | dist
+  )/
+  | manage.py           # Также отдельно исключить файл с именем manage.py
+  | .gitignore          # в корне проекта
+)
+'''
+
+[tool.isort]
+# запуск команды isort: isort --settings-file ./.isort.cfg .
+
+# максимальная длина строки
+line_length = 79
+
+# запятая в конце списка импорта
+# include_trailing_comma = true
+
+# количество пустых строчек после импорта
+lines_after_import = 2
+
+# пропустить файлы
+skip = __init__.py
