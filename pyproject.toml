@@ -58,4 +58,4 @@ line_length = 79
 lines_after_import = 2
 
 # пропустить файлы
-skip = __init__.py
+skip = ["__init__.py"]
