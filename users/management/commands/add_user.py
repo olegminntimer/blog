@@ -10,7 +10,9 @@ class Command(BaseCommand):
             user.set_password("parol12345")
             user.is_active = True
             user.save()
-            self.stdout.write(self.style.SUCCESS(f"Пользователь {user.email} создан!"))
+            self.stdout.write(
+                self.style.SUCCESS(f"Пользователь {user.email} создан!")
+            )
         else:
             self.stdout.write(
                 self.style.SUCCESS("Пользователь user1@mail.ru существует!")
@@ -21,7 +23,9 @@ class Command(BaseCommand):
             user.set_password("parol12345")
             user.is_active = True
             user.save()
-            self.stdout.write(self.style.SUCCESS("Пользователь user2@mail.ru создан!"))
+            self.stdout.write(
+                self.style.SUCCESS("Пользователь user2@mail.ru создан!")
+            )
         else:
             self.stdout.write(
                 self.style.SUCCESS(f"Пользователь {user.email} существует!")
