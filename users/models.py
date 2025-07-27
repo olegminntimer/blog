@@ -15,10 +15,10 @@ class User(AbstractUser):
         verbose_name="Email", validators=[validate_email_domain], unique=True
     )
 
-    def save(self, *args, **kwargs):
-        # Валидация перед сохранением
-        validate_password_complexity(self.password)
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     # Валидация перед сохранением
+    #     validate_password_complexity(self.password)
+    #     super().save(*args, **kwargs)
 
     phone = models.CharField(
         max_length=20,
