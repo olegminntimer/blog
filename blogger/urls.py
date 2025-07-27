@@ -1,18 +1,24 @@
-from rest_framework_nested import routers
+from django.urls import path
 
 from blogger.apps import BloggerConfig
-from rest_framework.routers import DefaultRouter
 
-from blogger.views import PostViewSet, CommentViewSet
+from blogger.views import PostListAPIView, PostCreateAPIView, PostRetrieveAPIView, PostUpdateAPIView, \
+    PostDestroyAPIView, CommentCreateAPIView, CommentListAPIView, CommentRetrieveAPIView, CommentUpdateAPIView, \
+    CommentDestroyAPIView
 
 app_name = BloggerConfig.name
 
-# Базовый роутер
-router = DefaultRouter()
-router.register(r"posts", PostViewSet, basename="posts")
+urlpatterns = [
+    path('posts/create/', PostCreateAPIView.as_view(), name='post-create'),
+    path('posts/', PostListAPIView.as_view(), name='post-list'),
+    path('posts/<int:pk>/', PostRetrieveAPIView.as_view(), name='post-retrieve'),
+    path('posts/<int:pk>/update/', PostUpdateAPIView.as_view(), name='post-update'),
+    path('posts/<int:pk>/delete/', PostDestroyAPIView.as_view(), name='post-delete'),
 
-# Вложенный роутер для комментариев к постам
-posts_router = routers.NestedSimpleRouter(router, r"posts", lookup="post")
-posts_router.register(r"comments", CommentViewSet, basename="post-comments")
+    path('comments/create/', CommentCreateAPIView.as_view(), name='comment-create'),
+    path('comments/', CommentListAPIView.as_view(), name='comment-list'),
+    path('comments/<int:pk>/', CommentRetrieveAPIView.as_view(), name='comment-retrieve'),
+    path('comments/<int:pk>/update/', CommentUpdateAPIView.as_view(), name='comment-update'),
+    path('comments/<int:pk>/delete/', CommentDestroyAPIView.as_view(), name='comment-delete'),
 
-urlpatterns = [] + router.urls + posts_router.urls
+]

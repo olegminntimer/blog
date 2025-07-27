@@ -38,7 +38,7 @@ def validate_author_age(birth_date):
     age = (
         today.year
         - birth_date.year
-        - ((today.month, today.day) < (birth_date.month, birth_date.day))
+        # - ((today.month, today.day) < (birth_date.month, birth_date.day))
     )
 
     if age < 18:
