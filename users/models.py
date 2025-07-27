@@ -1,18 +1,26 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils import timezone
+
+from blogger.validators import (
+    validate_email_domain,
+    validate_password_complexity,
+)
 
 
 class User(AbstractUser):
 
-    username = models.CharField(
-        max_length=50,
-        unique=True,
-        verbose_name="Логин пользователя",
-        help_text="Укажите логин пользователя",
+    username = None
+
+    email = models.EmailField(
+        verbose_name="Email", validators=[validate_email_domain], unique=True
     )
 
-    phone_number = models.CharField(
+    def save(self, *args, **kwargs):
+        # Валидация перед сохранением
+        validate_password_complexity(self.password)
+        super().save(*args, **kwargs)
+
+    phone = models.CharField(
         max_length=20,
         unique=True,
         verbose_name="Номер телефона",
@@ -36,9 +44,12 @@ class User(AbstractUser):
         auto_now=True, verbose_name="Дата редактирования"
     )
 
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
+
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
 
     def __str__(self):
-        return self.username
+        return self.email

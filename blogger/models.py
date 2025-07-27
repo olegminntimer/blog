@@ -1,11 +1,16 @@
 from django.db import models
 
+from blogger.validators import validate_author_age, validate_title_content
 from users.models import User
 
 
 class Post(models.Model):
 
-    title = models.CharField(max_length=200, verbose_name="Заголовок поста")
+    title = models.CharField(
+        max_length=200,
+        verbose_name="Заголовок поста",
+        validators=[validate_title_content],
+    )
 
     text = models.TextField(verbose_name="Текст поста")
 
@@ -18,6 +23,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         related_name="posts",
         verbose_name="Автор поста",
+        validators=[validate_author_age],
     )
 
     created_at = models.DateTimeField(
@@ -29,7 +35,7 @@ class Post(models.Model):
     )
 
     def __str__(self):
-        return f"Пост: {self.title} (автор: {self.author.username})"
+        return f"Пост: {self.title} (автор: {self.author.email})"
 
     class Meta:
         verbose_name = "Пост"
