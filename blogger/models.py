@@ -84,4 +84,4 @@ class Comment(models.Model):
     class Meta:
         verbose_name = "Комментарий"
         verbose_name_plural = "Комментарии"
-        ordering = ['-created_at']  # Сортировка по дате (новые сначала)
+        ordering = ['-created_at']
