@@ -1,0 +1,63 @@
+[project]
+name = "blog"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Oleg Timershayakhov",email = "olegtimer@yandex.ru"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "psycopg2-binary (>=2.9.10,<3.0.0)",
+    "pillow (>=11.3.0,<12.0.0)",
+    "djangorestframework (>=3.16.0,<4.0.0)",
+    "django (==4.2.2)",
+    "python-dotenv (>=1.1.1,<2.0.0)",
+    "drf-nested-routers (>=0.94.2,<0.95.0)",
+    "djangorestframework-simplejwt (>=5.5.1,<6.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.lint.dependencies]
+black = "^25.1.0"
+flake8 = "^7.3.0"
+isort = "^6.0.1"
+
+[tool.black]
+# Максимальная длина строки
+line-length = 79
+# Файлы, которые не нужно форматировать
+exclude = '''
+(
+  /(
+      \.eggs         # Исключить несколько общих каталогов
+    | \.git          # в корне проекта
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | dist
+  )/
+  | manage.py           # Также отдельно исключить файл с именем manage.py
+  | .gitignore          # в корне проекта
+)
+'''
+
+[tool.isort]
+# запуск команды isort: isort --settings-file ./.isort.cfg .
+
+# максимальная длина строки
+line_length = 79
+
+# запятая в конце списка импорта
+# include_trailing_comma = true
+
+# количество пустых строчек после импорта
+lines_after_import = 2
+
+# пропустить файлы
+skip = ["__init__.py"]
